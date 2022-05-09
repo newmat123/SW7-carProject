@@ -1,8 +1,8 @@
 /*
  * Motor.h
  *
- * Created: 5/3/2022 8:52:04 AM
- *  Author: Algorithm (Oliver G.)
+ * Created: 09/05/2022 10.53
+ *  Author: nicklas
  */ 
 
 //#pragma once

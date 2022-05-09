@@ -215,7 +215,7 @@ int main(void)
 unsigned char currentSpeed = 0;
 unsigned char desiredSpeed = 0;
 bool speedUp = true;
-char accelleration = 2;
+char accelleration = 2; //global var
 
 ISR(TIMER0_OVF_vect){
  134:	0f 92       	push	r0

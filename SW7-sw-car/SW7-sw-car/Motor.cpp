@@ -13,7 +13,7 @@ bool currentDir = false;
 unsigned char currentSpeed = 0;
 unsigned char desiredSpeed = 0;
 bool speedUp = true;
-char accelleration = 2;
+char accelleration = 2; //global var
 
 ISR(TIMER0_OVF_vect){
 	
@@ -125,3 +125,80 @@ void testMotor(){
 		}
 	}
 }
+
+
+//
+//using namespace std;
+//
+//Motor::Motor() {
+	//TCCR1A = 0b10100011;
+	//TCCR1B = 0b00000001;
+	//
+	//OCR1A = 0;
+	//sei(); // skal i main
+//}
+//
+//void Motor::pwmMotor(unsigned char speed) {
+	//if (speed <= 100 && speed >= 0){//checks for valid input
+		//if(currentSpeed != speed && desiredSpeed == currentSpeed){
+			//if(currentSpeed < speed){
+				//speedUp = true;
+				//}else{
+				//speedUp = false;
+			//}
+			//desiredSpeed = speed;
+			//
+			//TIMSK0 |= 0b00000001;
+			//TCCR0A = 0b00000000;
+			//TCCR0B = 0b00000101;
+		//}
+	//}
+//}
+//
+//void Motor::direction(bool fwd) {
+	//if(currentSpeed == 0 && desiredSpeed == 0){ //kan kun vende motoren ved at stå stille
+		//currentDir = fwd; //fwd true/false
+		//}else{ //else stop car, change dir and return to speed
+		//unsigned char oldSpeed = desiredSpeed;
+		//pwmMotor(0);
+		//while(currentSpeed != desiredSpeed)
+		//{}
+		//currentDir = fwd;
+		//pwmMotor(oldSpeed);
+	//}
+//}
+//
+//void Motor::testMotor() {
+	//DDRA = 0;
+	//DDRB = 0xFF;
+//
+	//PORTB = 0;
+//
+	//while(1){
+//
+		//if (~PINA & (1 << 0)){
+			//pwmMotor(0); //0%
+		//}
+		//if (~PINA & (1 << 1))
+		//{
+			//pwmMotor(25); //25%
+		//}
+		//if (~PINA & (1 << 2))
+		//{
+			//pwmMotor(50); //50%
+		//}
+		//if (~PINA & (1 << 3))
+		//{
+			//pwmMotor(75); //75%
+		//}
+		//if (~PINA & (1 << 4))
+		//{
+			//pwmMotor(100); //100%
+		//}
+		//
+		//if (~PINA & (1 << 7))
+		//{
+			//direction(!currentDir);
+		//}
+	//}
+//}

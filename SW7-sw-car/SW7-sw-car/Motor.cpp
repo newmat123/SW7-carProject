@@ -9,11 +9,11 @@
 #define F_CPU 16000000 //defines clock frekvens
 #include <avr/interrupt.h>
 
-bool currentDir = false;
+bool currentDir = true;
 unsigned char currentSpeed = 0;
 unsigned char desiredSpeed = 0;
 bool speedUp = true;
-char accelleration = 2; //global var
+char accelleration = 1; //global var
 
 ISR(TIMER0_OVF_vect){
 	
@@ -51,6 +51,12 @@ ISR(TIMER0_OVF_vect){
 }
 
 void initMotor(){
+	
+	currentDir = true;
+	currentSpeed = 0;
+	desiredSpeed = 0;
+	speedUp = true;
+	accelleration = 1; //global var
 	
 	TCCR1A = 0b10100011;
 	TCCR1B = 0b00000001;
@@ -127,13 +133,56 @@ void testMotor(){
 }
 
 
-//
+
 //#include <stdio.h>
 //#include <stdlib.h>
-//#include <iostream>
+//#include "Motor.h"
 //using namespace std;
 //
 //Motor::Motor() {
+	//currentDir_ = true;
+	//currentSpeed_ = 0;
+	//desiredSpeed_ = 0;
+	//accelleration_ = 1;
+	//speedUp_ = true;
+//}
+//
+//Motor::ISR(TIMER0_OVF_vect){
+	//
+	////controls the accelleration
+	//if (speedUp_){
+		//if(desiredSpeed_ >= (currentSpeed_ + accelleration_)){
+			//currentSpeed_ += accelleration_;
+			//}else{
+			//currentSpeed_ = desiredSpeed_;
+		//}
+		//}else{
+		//if(desiredSpeed_ <= (currentSpeed_ - accelleration_)){
+			//currentSpeed_ -= accelleration_;
+			//}else{
+			//currentSpeed_ = desiredSpeed_;
+		//}
+	//}
+	//
+	////sets the speed and dir
+	//int pwmSignal = currentSpeed_ * 10.2; // 100% = 1020
+	//if (!currentDir_)
+	//{
+		//OCR1B = 0;
+		//OCR1A = pwmSignal;
+	//}
+	//else {
+		//OCR1A = 0;
+		//OCR1B = pwmSignal;
+	//}
+	//
+	////stops timer interrupts
+	//if (desiredSpeed_ == currentSpeed_){
+		//TIMSK0 |= 0b00000000;
+	//}
+//}
+//
+//void Motor::initMotor() {
 	//TCCR1A = 0b10100011;
 	//TCCR1B = 0b00000001;
 	//
@@ -143,13 +192,13 @@ void testMotor(){
 //
 //void Motor::pwmMotor(unsigned char speed) {
 	//if (speed <= 100 && speed >= 0){//checks for valid input
-		//if(currentSpeed != speed && desiredSpeed == currentSpeed){
-			//if(currentSpeed < speed){
-				//speedUp = true;
+		//if(currentSpeed_ != speed && desiredSpeed_ == currentSpeed_){
+			//if(currentSpeed_ < speed){
+				//speedUp_ = true;
 				//}else{
-				//speedUp = false;
+				//speedUp_ = false;
 			//}
-			//desiredSpeed = speed;
+			//desiredSpeed_ = speed;
 			//
 			//TIMSK0 |= 0b00000001;
 			//TCCR0A = 0b00000000;
@@ -159,14 +208,14 @@ void testMotor(){
 //}
 //
 //void Motor::direction(bool fwd) {
-	//if(currentSpeed == 0 && desiredSpeed == 0){ //kan kun vende motoren ved at stå stille
-		//currentDir = fwd; //fwd true/false
+	//if(currentSpeed_ == 0 && desiredSpeed_ == 0){ //kan kun vende motoren ved at stå stille
+		//currentDir_ = fwd; //fwd true/false
 		//}else{ //else stop car, change dir and return to speed
-		//unsigned char oldSpeed = desiredSpeed;
+		//unsigned char oldSpeed = desiredSpeed_;
 		//pwmMotor(0);
-		//while(currentSpeed != desiredSpeed)
+		//while(currentSpeed_ != desiredSpeed_)
 		//{}
-		//currentDir = fwd;
+		//currentDir_ = fwd;
 		//pwmMotor(oldSpeed);
 	//}
 //}
@@ -201,7 +250,7 @@ void testMotor(){
 		//
 		//if (~PINA & (1 << 7))
 		//{
-			//direction(!currentDir);
+			//direction(!currentDir_);
 		//}
 	//}
 //}

@@ -22,6 +22,7 @@
 	//unsigned char currentSpeed_; //from 1 to 100 procent
 	//unsigned char desiredSpeed_; //from 1 to 100 procent
 	//char accelleration_;
+	//bool speedUp_;
 //
 //};
 

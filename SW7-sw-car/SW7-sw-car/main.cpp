@@ -11,10 +11,13 @@
 
 int main(void)
 {
-	initMotor();
-	direction(true);
-	pwmMotor(0);
-	testMotor();
+ 	initMotor();
+ 	direction(true);
+ 	pwmMotor(0);
+ 	testMotor();
+// 	Motor mortor();
+// 	mortor().initMotor();
+// 	mortor().testMotor();
     /* Replace with your application code */
     while (1) 
     {

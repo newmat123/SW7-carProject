@@ -5,7 +5,7 @@
  *  Author: nicklas
  */ 
 
-//#pragma once
+#pragma once
 //
 //class Motor
 //{

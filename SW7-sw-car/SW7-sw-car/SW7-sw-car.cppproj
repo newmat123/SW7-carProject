@@ -168,6 +168,18 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DriveControl.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="DriveControl.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Light.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Light.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="main.cpp">
       <SubType>compile</SubType>
     </Compile>
@@ -175,6 +187,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Motor.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Sound.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Sound.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>

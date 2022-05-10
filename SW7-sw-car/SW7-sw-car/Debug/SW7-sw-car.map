@@ -35,12 +35,30 @@ Discarded input sections
 
  .data          0x00000000        0x0 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega2560/avr6/crtatmega2560.o
  .bss           0x00000000        0x0 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega2560/avr6/crtatmega2560.o
+ .text          0x00000000        0x0 DriveControl.o
+ .data          0x00000000        0x0 DriveControl.o
+ .bss           0x00000000        0x0 DriveControl.o
+ .debug_line    0x00000000        0x0 DriveControl.o
+ .debug_str     0x00000000      0x140 DriveControl.o
+ .comment       0x00000000       0x31 DriveControl.o
+ .text          0x00000000        0x0 Light.o
+ .data          0x00000000        0x0 Light.o
+ .bss           0x00000000        0x0 Light.o
+ .debug_line    0x00000000        0x0 Light.o
+ .debug_str     0x00000000      0x139 Light.o
+ .comment       0x00000000       0x31 Light.o
  .text          0x00000000        0x0 main.o
  .data          0x00000000        0x0 main.o
  .bss           0x00000000        0x0 main.o
  .text          0x00000000        0x0 Motor.o
  .data          0x00000000        0x0 Motor.o
  .bss           0x00000000        0x0 Motor.o
+ .text          0x00000000        0x0 Sound.o
+ .data          0x00000000        0x0 Sound.o
+ .bss           0x00000000        0x0 Sound.o
+ .debug_line    0x00000000        0x0 Sound.o
+ .debug_str     0x00000000      0x139 Sound.o
+ .comment       0x00000000       0x31 Sound.o
  .text          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libm.a(fixsfsi.o)
  .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libm.a(fixsfsi.o)
  .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libm.a(fixsfsi.o)
@@ -142,8 +160,11 @@ Linker script and memory map
 
 Address of section .data set to 0x800200
 LOAD C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega2560/avr6/crtatmega2560.o
+LOAD DriveControl.o
+LOAD Light.o
 LOAD main.o
 LOAD Motor.o
+LOAD Sound.o
 START GROUP
 LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libm.a
 END GROUP

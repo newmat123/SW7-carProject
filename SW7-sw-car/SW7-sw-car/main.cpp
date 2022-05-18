@@ -7,17 +7,17 @@
 
 #include <avr/io.h>
 #include "Motor.h"
+#include "Sound.h"
 
 
 int main(void)
 {
- 	initMotor();
- 	direction(true);
- 	pwmMotor(0);
- 	testMotor();
-// 	Motor mortor();
-// 	mortor().initMotor();
-// 	mortor().testMotor();
+//  	initMotor();
+//  	direction(true);
+//  	pwmMotor(0);
+//  	testMotor();
+	initSound();
+	testSound();
     /* Replace with your application code */
     while (1) 
     {

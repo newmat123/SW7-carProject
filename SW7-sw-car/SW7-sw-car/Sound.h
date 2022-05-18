@@ -12,3 +12,6 @@
 void initSound();
 void playTrack(int trackNum);
 void stopTrack();
+
+
+void testSound();

@@ -9,65 +9,52 @@
 #include <stdlib.h>
 #define XTAL 16000000
 
+void SendComand(int comandArr[8])
+{
+	for (int i = 0; i < 8; i++)
+	{
+		while((UCSR1A & 0b00100000) == 0)
+		{
+		}
+		UDR1 = comandArr[i];
+	}
+}
+
+
 void initSound(){
-	//7E 06 00 00 (1E) FF DC EF  (1E)=30 max
 	//baud mega 2560 = 115200
 	// baud target 9600
 	//1 stop bit
 	//8 data bit
 	// no paritet
 	UCSR1A = 0b00100000;
-	
 	UCSR1B = 0b00011000;
+	UCSR1C = 0b00000110;
 	
-	UCSR1C = 0b00000000;
-	
-	unsigned int baudRate = 9600;
+	unsigned long baudRate = 9600;
 	UBRR1 = (XTAL+(8*baudRate))/(16*baudRate)-1;
+	UBRR0 = (XTAL+(8*baudRate))/(16*baudRate)-1;
 	
+	//sets max volume
+	int comand[8] = {0x7E, 0x06, 0x00, 0x00, 0x1E, 0xFF, 0xDC, 0xEF};
+	SendComand(comand);
 }
+
 
 void playTrack(int trackNum){
-	if(trackNum >= 1 && trackNum <= 1){
+	if(trackNum >= 1 && trackNum <= 15){
 		//7E 03 00 00 (01) FF FC EF  (01) = track 1 op til 16 fx 0A = 10
-		unsigned long data = 0x7E03000001FFFCEF;
-		UDR1 = data;
-		
+		int checksum = 0xFFFF - (0x03+0x00+0x00+trackNum)+1; 
+		int comand[8] = {0x7E, 0x03, 0x00, 0x00, trackNum, 0xFF, checksum, 0xEF};
+		SendComand(comand);
 	}
 }
+
 
 void stopTrack(){
-	unsigned long data = 0x7E16000000FFEEEF;
-	UDR1 = data;
+	int comand[8] = {0x7E, 0x16, 0x00, 0x00, 0x00, 0xFF, 0xEA, 0xEF};
+	SendComand(comand);
 }
-
-
-void SendChar(char Tegn)
-{
-	while((UCSR1A & 0b00100000) == 0)
-	{
-	}
-	UDR1 = Tegn;
-}
-
-
-void SendString(char* Streng)
-{
-	while (*Streng != 0)
-	{
-		SendChar(*Streng);
-		
-		Streng++;
-	}
-}
-
-void SendInteger(unsigned long Tal)
-{
-	char array[7];
-	itoa(Tal, array, 10);
-	SendString(array);
-}
-
 
 
 void testSound(){
@@ -76,20 +63,32 @@ void testSound(){
 
 	PORTB = 0;
 	
-	unsigned long data = 12;
-	SendInteger(data);
-
 	while(1){
-
+		
 		if (~PINA & (1 << 0)){
-			unsigned long data = 0x7E16000000FFEEEF;
-			SendInteger(data);
-			//playTrack(1);
+			
+			playTrack(0x01);
 		}
-		if (~PINA & (1 << 1))
+		if (~PINA & (1 << 1)){
+			
+			playTrack(0x02);
+		}
+		
+		if (~PINA & (1 << 5))
 		{
 			stopTrack();
 		}
-		
+		if (~PINA & (1 << 6))
+		{
+			//sets volume to 5
+			int comand[8] = {0x7E, 0x06, 0x00, 0x00, 0x05, 0xFF, 0xF5, 0xEF};
+			SendComand(comand);
+		}
+		if (~PINA & (1 << 7))
+		{
+			//sets max volume
+			int comand[8] = {0x7E, 0x06, 0x00, 0x00, 0x1E, 0xFF, 0xDC, 0xEF};
+			SendComand(comand);
+		}
 	}
 }

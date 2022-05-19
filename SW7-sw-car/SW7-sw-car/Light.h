@@ -1,15 +1,21 @@
 /*
  * Light.h
  *
- * Created: 10/05/2022 08.57.33
- *  Author: Nicklas
+ * Created: 10-05-2022 12:14:05
+ *  Author: morten
  */ 
 
 
-#pragma once
-#include <stdbool.h>
+#ifndef LED_H_
+#define LED_H_
 
-//Functions
 void initLight();
-void backLightIntensity(bool High);
+
+void backLightIntensity(bool high);
+
 void lightOnOff(bool onOff);
+
+
+
+
+#endif /* LED_H_ */

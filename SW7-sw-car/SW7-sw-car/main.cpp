@@ -6,9 +6,7 @@
  */ 
 
 #include <avr/io.h>
-#include "Motor.h"
-#include "Sound.h"
-
+#include "DriveControl.h"
 
 int main(void)
 {
@@ -16,11 +14,19 @@ int main(void)
 //  	direction(true);
 //  	pwmMotor(0);
 //  	testMotor();
-	initSound();
-	testSound();
-    /* Replace with your application code */
-    while (1) 
-    {
+	init();
+	
+    DDRA = 0;
+    DDRB = 0xFF;
+
+    PORTB = 0;
+    
+    while(1){
+	    
+	    if (~PINA & (1 << 0)){
+		    
+		    run();
+	    }
     }
 }
 

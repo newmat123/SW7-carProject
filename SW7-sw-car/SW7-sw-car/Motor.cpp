@@ -53,6 +53,8 @@ ISR(TIMER3_OVF_vect){
 }
 
 void initMotor(){
+	DDRB = 0xFF;
+	
 	TCCR1A = 0b10100011;
 	TCCR1B = 0b00000001;
 	

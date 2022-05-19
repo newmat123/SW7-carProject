@@ -12,6 +12,7 @@
 void initSound();
 void playTrack(int trackNum);
 void stopTrack();
+bool isPlaying(int trackNum);
 
 
 void testSound();

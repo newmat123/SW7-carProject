@@ -20,6 +20,18 @@ void SendComand(int comandArr[8])
 	}
 }
 
+bool checkComand(int comandArr[8])
+{
+	for (int i = 0; i < 6; i++)
+	{
+		while ( (UCSR1A & (1<<7)) == 0 )
+		{}
+		if(comandArr[i] != UDR1){
+			return false;
+		}
+	}
+	return true;
+}
 
 void initSound(){
 	//baud mega 2560 = 115200
@@ -33,7 +45,6 @@ void initSound(){
 	
 	unsigned long baudRate = 9600;
 	UBRR1 = (XTAL+(8*baudRate))/(16*baudRate)-1;
-	UBRR0 = (XTAL+(8*baudRate))/(16*baudRate)-1;
 	
 	//sets max volume
 	int comand[8] = {0x7E, 0x06, 0x00, 0x00, 0x1E, 0xFF, 0xDC, 0xEF};
@@ -50,6 +61,11 @@ void playTrack(int trackNum){
 	}
 }
 
+bool isPlaying(int trackNum){
+	//7E 3D 00 00 02 FF C1 EF	int checksum = 0xFFFF - (0x3D+0x00+0x00+trackNum)+1;
+	int comand[8] = {0x7E, 0x3D, 0x00, 0x00, trackNum, 0xFF, checksum, 0xEF};
+	if(checkComand(comand)){		return false;	}else{		return true;	}
+}
 
 void stopTrack(){
 	int comand[8] = {0x7E, 0x16, 0x00, 0x00, 0x00, 0xFF, 0xEA, 0xEF};

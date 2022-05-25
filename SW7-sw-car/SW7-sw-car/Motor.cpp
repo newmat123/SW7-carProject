@@ -29,7 +29,7 @@ ISR(TIMER3_OVF_vect){
 	}else{
 		if(desiredSpeed <= (currentSpeed-acceleration)){
 			currentSpeed -= acceleration;
-			}else{
+		}else{
 			currentSpeed = desiredSpeed;
 		}
 	}
@@ -63,7 +63,7 @@ void initMotor(){
 	TCCR3B = 0b00000010; //prescaler
 	
 	OCR1A = 0;
-	sei(); // skal i main
+	//sei(); // skal i main
 	
 	currentDir = true;
 	pwmMotor(0); //currentSpeed = 0  desiredSpeed = 0
@@ -91,15 +91,17 @@ void pwmMotor(unsigned char speed){
 }
 	
 void direction(bool fwd){
-	if(currentSpeed == 0 && desiredSpeed == 0){ //stå bilen stille
-		currentDir = fwd; //fwd true/false
-	}else{ //else stop car, change dir and return to speed
-		unsigned char oldSpeed = desiredSpeed;
-		pwmMotor(0);
-		while(currentSpeed != desiredSpeed)
-		{}
-		currentDir = fwd;
-		pwmMotor(oldSpeed);
+	if(fwd != currentDir){
+		if(currentSpeed == 0 && desiredSpeed == 0){ //stå bilen stille
+			currentDir = fwd; //fwd true/false
+		}else{ //else stop car, change dir and return to speed
+			unsigned char oldSpeed = desiredSpeed;
+			pwmMotor(0);
+ 			while(currentSpeed != desiredSpeed)
+ 			{}
+			currentDir = fwd;
+			pwmMotor(oldSpeed);
+		}
 	}
 }
 
@@ -109,6 +111,14 @@ void pwmAcceleration(unsigned char num){
 	}
 }
 
+//måske fjernes igen idk
+bool changingSpeed(){
+	if(currentSpeed != desiredSpeed){
+		return true;
+	}else{
+		return false;
+	}
+}
 
 
 void testMotor(){
@@ -149,7 +159,7 @@ void testMotor(){
 		
 		if (~PINA & (1 << 7))
 		{
-			direction(!currentDir);
+			direction(false);
 		}
 	}
 }

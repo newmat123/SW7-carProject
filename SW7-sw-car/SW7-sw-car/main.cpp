@@ -7,6 +7,7 @@
 
 #include <avr/io.h>
 #include "DriveControl.h"
+#include "led.h"
 
 int main(void)
 {
@@ -15,16 +16,13 @@ int main(void)
 //  	pwmMotor(0);
 //  	testMotor();
 	init();
-	
     DDRA = 0;
     DDRB = 0xFF;
 
     PORTB = 0;
     
     while(1){
-	    
 	    if (~PINA & (1 << 0)){
-		    
 		    run();
 	    }
     }

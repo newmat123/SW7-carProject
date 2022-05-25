@@ -40,5 +40,7 @@ void pwmMotor(unsigned char speed);
 void direction(bool fwd);
 void pwmAcceleration(unsigned char num);
 
+bool changingSpeed();
+
 //test
 void testMotor();

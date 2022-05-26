@@ -15,58 +15,15 @@
 
 unsigned char mapNum = 0;
 
-void drive(){
-	mapNum++;
-	PORTB=mapNum;
-	
-	switch(mapNum){
-		case 2:
-		//setMortor(80, motorAccelerration); // up in speed
-		pwmMotor(80);
-		break;
-		
-		case 3:
-		//setMortor(40, motorAccelerration); //down in speed
-		pwmMotor(20);
-		backLightIntensity(true);
-//  		while(changingSpeed()){
-//  			//wait
-//  		}
-		//vent halt sekund
-		//backLightIntensity(false);
-		break;
-		
-		case 4:
-		backLightIntensity(false);
-		//setMortor(80, motorAccelerration); //up in speed
-		pwmMotor(40);
-		break;
-		
-		case 6:
-		direction(false);//switch dir
-		while(changingSpeed()){
-		}
-		
-		break;
-		
-		case 8:
-		direction(true);//switch dir
-		pwmMotor(80);
-		break;
-		
-		case 11:
-		//setMortor(0, 8);
-		pwmAcceleration(8);
-		pwmMotor(0);
-		backLightIntensity(true);
-		break;
-	}
-}
+bool newPoint = false;
+
+
 
 ISR(INT0_vect) {
-	
 	EIMSK |= 0b00000000;
- 	drive();
+	
+ 	mapNum++;
+	newPoint = true;
 	 
  	_delay_ms(500);
 	EIFR = 0xFF;
@@ -75,7 +32,10 @@ ISR(INT0_vect) {
 
 ISR(INT1_vect) {
 	EIMSK |= 0b00000000;
-	drive();
+	
+	mapNum++;
+	newPoint = true;
+	
 	_delay_ms(500);
 	EIFR = 0xFF;
 	EIMSK |= 0b00000011;
@@ -92,16 +52,134 @@ void init(){
 }
 
 void run(){
-    playTrack(0x02);
-    
-    while(isPlaying(0x02))
+    playTrack(0x01);
+    while(isPlaying(0x01))
     {
     }
+	
     lightOnOff(true);
-    pwmMotor(20);
-    
+    pwmMotor(35);
+	
     mapNum = 0;
     EIFR = 0xFF;
     EIMSK |= 0b00000011;
-	//testMotor();
+	
+	while(1){
+		
+		if(newPoint){
+			newPoint=false;
+			PORTB=mapNum;
+			switch(mapNum){
+				case 1:
+				playTrack(0x02);
+				break;
+				
+				case 2:
+				playTrack(0x03);
+				pwmMotor(80);
+				break;
+				
+				case 3:
+				playTrack(0x04);
+				pwmAcceleration(10);
+				pwmMotor(20);
+				
+				backLightIntensity(true);
+				while(changingSpeed()){
+				}
+				_delay_ms(500);
+				backLightIntensity(false);
+				break;
+				
+				case 4:
+				playTrack(0x05);
+				pwmMotor(40);
+				break;
+				
+				case 5:
+				playTrack(0x0C);
+				break;
+				
+				case 6:
+				playTrack(0x07);
+				
+				backLightIntensity(true);
+				pwmMotor(0);
+				while(changingSpeed()){
+				}
+				direction(false);
+				pwmMotor(40);
+				_delay_ms(500);
+				backLightIntensity(false);
+				
+				break;
+				
+				case 7:
+				playTrack(0x06);
+				break;
+				
+				case 8:
+				playTrack(0x08);
+				backLightIntensity(true);
+				pwmMotor(0);
+				while(changingSpeed()){
+				}
+				direction(true);
+				pwmMotor(60);
+				_delay_ms(500);
+				backLightIntensity(false);
+				break;
+				
+				case 9:
+				playTrack(0x03);
+				break;
+				
+				case 10:
+				playTrack(0x09);
+				pwmMotor(30);
+				backLightIntensity(true);
+				while(changingSpeed()){
+				}
+				_delay_ms(500);
+				backLightIntensity(false);
+				break;
+				
+				case 11:
+				playTrack(0x0A);
+				backLightIntensity(true);
+				pwmAcceleration(30);
+				pwmMotor(0);
+				while(changingSpeed()){
+				}
+				_delay_ms(500);
+				backLightIntensity(false);
+				
+				while(isPlaying(0x0A))
+				{
+				}
+				_delay_ms(500);
+				
+				playTrack(0x0B);
+				while(isPlaying(0x0B))
+				{
+				}
+				_delay_ms(1000);
+				
+				playTrack(0x0C);
+				while(isPlaying(0x0C))
+				{
+				}
+				_delay_ms(500);
+				
+				playTrack(0x0D);
+				while(isPlaying(0x0D))
+				{
+				}
+				_delay_ms(1000);
+				
+				playTrack(0x0E);
+				break;
+			}
+		}
+	}
 }

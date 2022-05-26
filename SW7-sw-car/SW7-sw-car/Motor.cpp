@@ -97,8 +97,8 @@ void direction(bool fwd){
 		}else{ //else stop car, change dir and return to speed
 			unsigned char oldSpeed = desiredSpeed;
 			pwmMotor(0);
- 			while(currentSpeed != desiredSpeed)
- 			{}
+   			while(currentSpeed != desiredSpeed)
+   			{}
 			currentDir = fwd;
 			pwmMotor(oldSpeed);
 		}

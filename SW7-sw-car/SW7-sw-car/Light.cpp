@@ -28,7 +28,7 @@ void initLight(){
 void lightOnOff(bool onOff) {
 	if (onOff == true) {
 		PORTL = (1<<7); //lightOnOff(true); sender 1 tal på PORTJ ben 7, 79
-		OCR4A = 204; //BEN 3 PORTH, 15 på arduino	
+		OCR4A = 205; //BEN 3 PORTH, 15 på arduino	
 	}
 	else {
 		PORTL = 0;
@@ -43,6 +43,6 @@ void backLightIntensity(bool high) {
 	} else {
 		// Duty cycle 20% VED NORMAL
 		// D = OCR/TOP. D = 20% OCR = ukendt(løses i CAS program) TOP(afhænger af mode) = 1023
-		OCR4A = 204; //PORT E ben 3
+		OCR4A = 205; //PORT E ben 3
 	}
 }

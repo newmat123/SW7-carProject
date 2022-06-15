@@ -9,7 +9,7 @@
 #define F_CPU 16000000 //defines clock frekvens
 #include <avr/interrupt.h>#include <util/delay.h>
 
-#include "Motor.h"
+#include "Engine.h"
 #include "Light.h"
 #include "Sound.h"
 
@@ -17,33 +17,28 @@ unsigned char mapNum = 0;
 
 bool newPoint = false;
 
-
-
-ISR(INT0_vect) {
-	EIMSK |= 0b00000000;
-	
- 	mapNum++;
-	newPoint = true;
-	 
- 	_delay_ms(500);
-	EIFR = 0xFF;
- 	EIMSK |= 0b00000011;
-}
-
-ISR(INT1_vect) {
-	EIMSK |= 0b00000000;
-	
+void reflectDetection(){
 	mapNum++;
 	newPoint = true;
 	
 	_delay_ms(500);
 	EIFR = 0xFF;
 	EIMSK |= 0b00000011;
+}
+
+ISR(INT0_vect) {
+	EIMSK |= 0b00000000;
+	reflectDetection();
+}
+
+ISR(INT1_vect) {
+	EIMSK |= 0b00000000;
+	reflectDetection();
 }	
 
 
 void init(){
-	initMotor();
+	initEngine();
 	initSound();
 	initLight();
 	sei();
@@ -58,7 +53,7 @@ void run(){
     }
 	
     lightOnOff(true);
-    pwmMotor(35);
+    pwmEngine(35);
 	
     mapNum = 0;
     EIFR = 0xFF;
@@ -71,113 +66,112 @@ void run(){
 			PORTB=mapNum;
 			switch(mapNum){
 				case 1:
-				playTrack(0x02);
+					playTrack(0x02);
 				break;
 				
 				case 2:
-				playTrack(0x03);
-				pwmMotor(80);
+					playTrack(0x03);
+					pwmEngine(80);
 				break;
 				
 				case 3:
-				playTrack(0x04);
-				pwmAcceleration(10);
-				pwmMotor(20);
+					playTrack(0x04);
+					pwmAcceleration(10);
+					pwmEngine(20);
 				
-				backLightIntensity(true);
-				while(changingSpeed()){
-				}
-				_delay_ms(500);
-				backLightIntensity(false);
+					backLightIntensity(true);
+					while(changingSpeed()){
+					}
+					_delay_ms(500);
+					backLightIntensity(false);
 				break;
 				
 				case 4:
-				playTrack(0x05);
-				pwmMotor(40);
+					playTrack(0x05);
+					pwmEngine(40);
 				break;
 				
 				case 5:
-				playTrack(0x0C);
+					playTrack(0x0C);
 				break;
 				
 				case 6:
-				playTrack(0x07);
+					playTrack(0x07);
 				
-				backLightIntensity(true);
-				pwmMotor(0);
-				while(changingSpeed()){
-				}
-				direction(false);
-				pwmMotor(40);
-				_delay_ms(500);
-				backLightIntensity(false);
-				
+					backLightIntensity(true);
+					pwmEngine(0);
+					while(changingSpeed()){
+					}
+					direction(false);
+					pwmEngine(40);
+					_delay_ms(500);
+					backLightIntensity(false);
 				break;
 				
 				case 7:
-				playTrack(0x06);
+					playTrack(0x06);
 				break;
 				
 				case 8:
-				playTrack(0x08);
-				backLightIntensity(true);
-				pwmMotor(0);
-				while(changingSpeed()){
-				}
-				direction(true);
-				pwmMotor(60);
-				_delay_ms(500);
-				backLightIntensity(false);
+					playTrack(0x08);
+					backLightIntensity(true);
+					pwmEngine(0);
+					while(changingSpeed()){
+					}
+					direction(true);
+					pwmEngine(60);
+					_delay_ms(500);
+					backLightIntensity(false);
 				break;
 				
 				case 9:
-				playTrack(0x03);
+					playTrack(0x03);
 				break;
 				
 				case 10:
-				playTrack(0x09);
-				pwmMotor(30);
-				backLightIntensity(true);
-				while(changingSpeed()){
-				}
-				_delay_ms(500);
-				backLightIntensity(false);
+					playTrack(0x09);
+					pwmEngine(30);
+					backLightIntensity(true);
+					while(changingSpeed()){
+					}
+					_delay_ms(500);
+					backLightIntensity(false);
 				break;
 				
 				case 11:
-				playTrack(0x0A);
-				backLightIntensity(true);
-				pwmAcceleration(30);
-				pwmMotor(0);
-				while(changingSpeed()){
-				}
-				_delay_ms(500);
-				backLightIntensity(false);
+					playTrack(0x0A);
+					backLightIntensity(true);
+					pwmAcceleration(30);
+					pwmEngine(0);
+					while(changingSpeed()){
+					}
+					_delay_ms(500);
+					backLightIntensity(false);
 				
-				while(isPlaying(0x0A))
-				{
-				}
-				_delay_ms(500);
+					while(isPlaying(0x0A))
+					{
+					}
+					_delay_ms(500);
 				
-				playTrack(0x0B);
-				while(isPlaying(0x0B))
-				{
-				}
-				_delay_ms(1000);
+					playTrack(0x0B);
+					while(isPlaying(0x0B))
+					{
+					}
+					_delay_ms(1000);
 				
-				playTrack(0x0C);
-				while(isPlaying(0x0C))
-				{
-				}
-				_delay_ms(500);
+					playTrack(0x0C);
+					while(isPlaying(0x0C))
+					{
+					}
+					_delay_ms(500);
 				
-				playTrack(0x0D);
-				while(isPlaying(0x0D))
-				{
-				}
-				_delay_ms(1000);
+					playTrack(0x0D);
+					while(isPlaying(0x0D))
+					{
+					}
+					_delay_ms(1000);
 				
-				playTrack(0x0E);
+					playTrack(0x0E);
 				break;
 			}
 		}

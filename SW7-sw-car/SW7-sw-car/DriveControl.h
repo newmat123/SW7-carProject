@@ -10,4 +10,5 @@
 
 //Functions
 void init();
+void reflectDetection();
 void run();

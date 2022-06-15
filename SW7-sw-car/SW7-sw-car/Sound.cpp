@@ -75,9 +75,6 @@ void stopTrack(){
 
 void testSound(){
 	DDRA = 0;
-	DDRB = 0xFF;
-
-	PORTB = 0;
 	
 	while(1){
 		

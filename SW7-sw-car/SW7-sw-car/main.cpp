@@ -7,22 +7,14 @@
 
 #include <avr/io.h>
 #include "DriveControl.h"
-#include "led.h"
 
 int main(void)
 {
-//  	initMotor();
-//  	direction(true);
-//  	pwmMotor(0);
-//  	testMotor();
 	init();
     DDRA = 0;
-    DDRB = 0xFF;
-
-    PORTB = 0;
     
     while(1){
-	    if (~PINA & (1 << 0)){
+	    if (~PINA & (1 << 7)){
 		    run();
 	    }
     }

@@ -183,10 +183,10 @@
     <Compile Include="main.cpp">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Motor.cpp">
+    <Compile Include="Engine.cpp">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Motor.h">
+    <Compile Include="Engine.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Sound.cpp">

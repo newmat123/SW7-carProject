@@ -21,7 +21,7 @@ void reflectDetection(){
 	mapNum++;
 	newPoint = true;
 	
-	_delay_ms(500);
+	_delay_ms(300);
 	EIFR = 0xFF;
 	EIMSK |= 0b00000011;
 }
@@ -47,13 +47,13 @@ void init(){
 }
 
 void run(){
-    playTrack(0x01);
-    while(isPlaying(0x01))
-    {
-    }
+     playTrack(0x01);
+     while(isPlaying(0x01))
+     {
+     }
 	
     lightOnOff(true);
-    pwmEngine(35);
+    pwmEngine(20);
 	
     mapNum = 0;
     EIFR = 0xFF;
@@ -71,13 +71,17 @@ void run(){
 				
 				case 2:
 					playTrack(0x03);
-					pwmEngine(80);
+					pwmAcceleration(2);
+					pwmEngine(80); //lige før bakke
+					_delay_ms(2000);
+					pwmAcceleration(6);
+					pwmEngine(20);
 				break;
 				
 				case 3:
 					playTrack(0x04);
-					pwmAcceleration(10);
-					pwmEngine(20);
+					pwmAcceleration(5);
+					pwmEngine(5);
 				
 					backLightIntensity(true);
 					while(changingSpeed()){
@@ -89,6 +93,7 @@ void run(){
 				case 4:
 					playTrack(0x05);
 					pwmEngine(40);
+					pwmAcceleration(3);
 				break;
 				
 				case 5:
@@ -119,7 +124,7 @@ void run(){
 					while(changingSpeed()){
 					}
 					direction(true);
-					pwmEngine(60);
+					pwmEngine(50);
 					_delay_ms(500);
 					backLightIntensity(false);
 				break;
@@ -130,7 +135,8 @@ void run(){
 				
 				case 10:
 					playTrack(0x09);
-					pwmEngine(30);
+					pwmAcceleration(4);
+					pwmEngine(40);
 					backLightIntensity(true);
 					while(changingSpeed()){
 					}
@@ -141,7 +147,7 @@ void run(){
 				case 11:
 					playTrack(0x0A);
 					backLightIntensity(true);
-					pwmAcceleration(30);
+					//pwmAcceleration(5);
 					pwmEngine(0);
 					while(changingSpeed()){
 					}

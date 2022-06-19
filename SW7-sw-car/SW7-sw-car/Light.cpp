@@ -46,3 +46,26 @@ void backLightIntensity(bool high) {
 		OCR4A = 205; //PORT E ben 3
 	}
 }
+
+void testLight(){
+	DDRA = 0;
+
+	while(1){
+
+		if (~PINA & (1 << 0)){
+			lightOnOff(true);
+		}
+		if (~PINA & (1 << 1))
+		{
+			lightOnOff(false);
+		}
+		if (~PINA & (1 << 2))
+		{
+			backLightIntensity(true);
+		}
+		if (~PINA & (1 << 3))
+		{
+			backLightIntensity(false);
+		}
+	}
+}

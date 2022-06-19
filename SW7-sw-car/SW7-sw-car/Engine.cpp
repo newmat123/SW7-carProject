@@ -70,10 +70,6 @@ void initEngine(){
 	acceleration = 5;
 }
 
-
-//TCNT3 = 65536 - 40535;
-//TCNT3 = 65500;
-//OCR3A = 40535;
 void pwmEngine(unsigned char speed){
 	if (speed <= 100 && speed >= 0){//checks for valid input
 		if(currentSpeed != speed){

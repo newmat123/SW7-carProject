@@ -15,7 +15,7 @@ void backLightIntensity(bool high);
 
 void lightOnOff(bool onOff);
 
-
+void testLight();
 
 
 #endif /* LED_H_ */
